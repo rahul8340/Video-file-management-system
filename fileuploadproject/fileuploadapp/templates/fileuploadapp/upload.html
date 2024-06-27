@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    {% comment %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    {% endcomment %}
+  </head>
+  <body>
+    <style>
+      /* Form Styles */
+      .upload-form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        background-color: #f7f7f7;
+        border-radius: 5px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      input[type="file"] {
+        display: block;
+        margin-top: 5px;
+      }
+
+      textarea {
+        width: 100%;
+        height: 100px;
+        resize: vertical;
+      }
+
+      .submit-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .submit-btn:hover {
+        background-color: #0056b3;
+      }
+    </style>
+
+    <form method="post" enctype="multipart/form-data" class="upload-form">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="{{ form.file.id_for_label }}">Select File:</label>
+        {{ form.file }}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.description.id_for_label }}">Description:</label>
+        {{ form.description }}
+      </div>
+
+      <button class="submit-btn" type="submit">Upload</button>
+    </form>
+  </body>
+</html>

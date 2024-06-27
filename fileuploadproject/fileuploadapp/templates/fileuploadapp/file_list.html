@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FFMPEG</title>
+  </head>
+  <body>
+    <style>
+      /* Form Styles */
+      .search-form {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .search-input {
+        padding: 10px;
+        width: 300px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      .search-btn {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .search-btn:hover {
+        background-color: #0056b3;
+      }
+    </style>
+
+    <form method="get" action="{% url 'file_list' %}" class="search-form">
+      <input
+        type="text"
+        name="search"
+        placeholder="Search files"
+        value="{{ search_query }}"
+        class="search-input"
+      />
+      <button type="submit" class="search-btn">Search</button>
+    </form>
+
+    <style>
+      .file-item {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #f7f7f7;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+      }
+
+      .file-item p {
+        margin: 0;
+        padding: 5px 0;
+      }
+
+      .file-item p strong {
+        font-weight: bold;
+      }
+
+      .file-item p:not(:first-child) {
+        margin-top: 5px;
+      }
+
+      .file-item p:last-child {
+        margin-bottom: 0;
+      }
+
+      .no-files {
+        text-align: center;
+        font-style: italic;
+        color: #999;
+      }
+    </style>
+
+     {% for file in files %}
+    <div class="file-item">
+      <p><strong>{{ file.name }}</strong></p>
+      <p>Description: {{ file.description }}</p>
+      <p>Duration: {{ file.duration }}</p>
+      <p>Size: {{ file.size }}</p>
+      <p>FPS: {{ file.fps }}</p>
+      <p>Codec Type: {{ file.codec_type }}</p>
+      <p>Bitrate: {{ file.bitrate }} kbps</p>
+      <p>Resolution: {{ file.resolution }}</p>
+      <p>Audio Codec Type: {{ file.audio_codec_type }}</p>
+      <p>Audio Channels: {{ file.audio_channels }}</p>
+      <p>Audio Sample Rate: {{ file.audio_sample_rate }}</p>
+      <p>Uploaded at: {{ file.uploaded_at }}</p>
+    </div>
+    {% empty %}
+    <p class="no-files">No files uploaded yet.</p>
+    {% endfor %} 
+  </body>
+</html>
+
+<tfoot>
+  <tr>
+      <td colspan="15" class="uploaded-files-count">
+          Total Uploaded Files: {{ files|length }}
+      </td>
+  </tr>
+</tfoot>
+
